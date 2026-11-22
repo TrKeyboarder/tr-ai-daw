@@ -28,4 +28,6 @@
     <rect x="618" y="554" width="76" height="218" rx="38" fill="#ffd6a0"/>
     <rect x="726" y="517" width="76" height="286" rx="38" opacity=".9"/>
   </g>
+  <rect x="150" y="842" width="724" height="112" rx="56" fill="#74102f" fill-opacity=".92"/>
+  <text x="512" y="920" fill="#fff" font-family="DejaVu Sans" font-size="76" font-weight="800" letter-spacing="1" text-anchor="middle">Tr AI-Daw</text>
 </svg>
