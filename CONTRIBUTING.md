@@ -1,42 +1,47 @@
 # Katkı rehberi
 
-Tr AI-Daw'a hoş geldin! Çeviri, dokümantasyon, hata düzeltmesi, test ve kullanılabilirlik iyileştirmelerine açığız. İlk katkın olacaksa küçük bir yazım veya çeviri düzeltmesiyle başlayabilirsin.
+Tr AI-Daw; ses motoru, beste/düzenleme, miks, eklentiler, AI/MCP araçları, masaüstü uygulaması, platform paketleri, test ve belgeleriyle geliştirilen tam bir DAW projesidir. Bu alanların tümünden katkı bekliyoruz; Türkçe yerelleştirme bunlardan yalnızca biridir.
 
-## Başlamadan önce
+## Nereden başlamalı?
 
-- Hata bildirimleri ve özellik önerileri için [Issues](https://github.com/TrKeyboarder/tr-ai-daw/issues), açık uçlu fikir alışverişi için [Discussions](https://github.com/TrKeyboarder/tr-ai-daw/discussions) kullan.
-- Büyük bir değişikliğe başlamadan önce bir Issue veya Discussion açıp yaklaşımı konuş; bu, emeğinin projeyle uyumlu olmasına yardımcı olur.
-- Bu depo, [heshengtao/ai-daw](https://github.com/heshengtao/ai-daw) projesinin Apache-2.0 lisanslı topluluk sürümüdür. Upstream telif ve lisans bildirimlerini koru; üçüncü taraf içeriklerin lisansını ayrıca belirt.
+- Hata veya özellik önerisi: [Issues](https://github.com/TrKeyboarder/tr-ai-daw/issues)
+- Tasarım ve genel ürün tartışmaları: [Discussions](https://github.com/TrKeyboarder/tr-ai-daw/discussions)
+- Geliştirme kapsamı: [ROADMAP.md](./ROADMAP.md) ve [GitHub Project panosu](https://github.com/users/TrKeyboarder/projects/2)
+- İlk katkı: etiketlenmiş küçük bir Issue, test iyileştirmesi veya dokümantasyon düzeltmesi seçebilirsin.
 
-## Pull request iş akışı
+Büyük bir değişikliğe başlamadan önce yaklaşımı bir Issue veya Discussion'da konuşmak, çalışmanın ürün hedefiyle uyumlu olmasını sağlar.
+
+## Pull request süreci
 
 1. Depoyu fork et ve `main` dışında açıklayıcı bir dal aç.
-2. Değişikliği tek bir amaca odaklı ve mevcut proje biçemine uygun tut.
-3. İlgili kontrolleri çalıştır ve pull request açıklamasında sonuçlarını yaz.
-4. Pull request'ini `main` dalına gönder. Birleştirme için en az bir onaylı inceleme gerekir; yeni bir commit inceleme onayını geçersiz kılabilir.
+2. Değişikliği odaklı tut; ilgili issue veya kullanım senaryosunu açıkla.
+3. Kapsamına uygun kontrolleri çalıştır ve sonuçları PR'da belirt.
+4. Pull request'ini `main` dalına gönder; olağan katkılar bir onaylı incelemeden sonra birleştirilir. Depo yöneticileri bu koruma kuralından muaftır.
 
-`main` doğrudan katkı dalı değildir. Pull request'ler topluluk incelemesinden geçer; lütfen inceleme geri bildirimlerini yapıcı şekilde ele al.
+Yeni bir commit, daha önceki inceleme onayını geçersiz kılabilir. Geri bildirimleri ele alırken testleri ve kullanıcı etkisini güncelle.
 
-## Yararlı kontroller
+## Geliştirme kontrolleri
 
-Ön uç değişiklikleri için:
+Ön uç değişiklikleri:
 
 ```bash
 pnpm install --frozen-lockfile
 pnpm build
 ```
 
-Daemon/Rust değişiklikleri için, yerel sistem bağımlılıkları kuruluysa:
+Daemon/Rust değişiklikleri (gerekli yerel sistem bağımlılıkları kuruluysa):
 
 ```bash
 cargo fmt --all -- --check
 cargo test -p ai-daw-daemon --lib --no-default-features
 ```
 
-Her değişiklik için tüm kontrolleri çalıştırmak zorunlu değildir; kapsamına uygun olanları seç ve çalıştırmadıklarını PR açıklamasında belirt. Derlenmiş uygulama paketlerini, yerel model ağırlıklarını, kimlik bilgilerini veya kişisel ses dosyalarını commit etme.
+Her PR'da tüm komutları çalıştırmak gerekmez; ilgili olanları seç ve çalıştırmadıklarını not et. Derlenmiş paketleri, model ağırlıklarını, kimlik bilgilerini veya kişisel ses dosyalarını commit etme.
 
-## Türkçe çeviri
+## Çeviri katkıları
 
-- Mevcut çeviri anahtarlarını ve `{name}` gibi yer tutucuları aynen koru.
-- Arayüzde doğal, anlaşılır ve tutarlı Türkçe kullan; teknik terimlerde proje içindeki mevcut kullanımı izle.
-- Çevrilmemiş metinler yedek dillere dönebildiğinden yeni metinlerin anlamını ve bağlamını PR açıklamasında belirt.
+Türkçe arayüz için doğal ve tutarlı dil kullan; mevcut anahtarları ve `{name}` biçimindeki yer tutucuları koru. Yeni terimlerde diğer ekranlardaki kullanımı izle ve bağlamı PR açıklamasında belirt. Çeviri çalışmaları, uygulama ve ses altyapısı geliştirmesiyle aynı ürün yol haritasının parçasıdır.
+
+## Kaynak ve lisans
+
+Bu proje [heshengtao/ai-daw](https://github.com/heshengtao/ai-daw) kod tabanı üzerine kuruludur. Kaynak dosyalardaki telif/lisans bildirimlerini ve [NOTICE](./NOTICE) atıflarını koru; yeni üçüncü taraf bağımlılık veya içeriklerin lisansını açıkça belirt.
