@@ -104,7 +104,7 @@ fn on_host_window_closing(window: &tauri::Window, event: &tauri::WindowEvent) {
     let Some(key) = ai_daw_daemon::commands::host_window_track(window.label()) else {
         return;
     };
-    let state = window.app_handle().state::<AppState>();
+    let state = window.app_handle().state::<Arc<AppState>>();
     if let Some(plugin_window) = ai_daw_daemon::state::with_editor_windows(|windows| windows.remove(&key)) {
         plugin_window.close();
     }

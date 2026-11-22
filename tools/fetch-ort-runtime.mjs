@@ -25,7 +25,6 @@ const FORCE = process.argv.includes("--force");
 
 const ORT = "1.30.0";
 const NUGET = "https://api.nuget.org/v3-flatcontainer";
-const GH = `https://github.com/microsoft/onnxruntime/releases/download/v${ORT}`;
 
 /** 当前平台要准备什么：目标文件名 → 来源。 */
 function plan() {
@@ -54,9 +53,9 @@ function plan() {
       files: ["libonnxruntime.so"],
       steps: [
         {
-          url: `${GH}/onnxruntime-linux-x64-${ORT}.tgz`,
-          kind: "tgz",
-          pick: { [`onnxruntime-linux-x64-${ORT}/lib/libonnxruntime.so.${ORT}`]: "libonnxruntime.so" },
+          url: `${NUGET}/microsoft.ml.onnxruntime/${ORT}/microsoft.ml.onnxruntime.${ORT}.nupkg`,
+          kind: "zip",
+          pick: { "runtimes/linux-x64/native/libonnxruntime.so": "libonnxruntime.so" },
         },
       ],
     };

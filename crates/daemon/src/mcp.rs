@@ -2249,7 +2249,7 @@ pub(crate) mod tools {
 
     pub(crate) fn get_project(app: &AppHandle) -> Result<String, String> {
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -3014,7 +3014,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
     /// 轨道效果链的可读形式（`0:内置混响 → 1:JC303 Overdrive`），用于写操作的回执。
     fn effect_chain(app: &AppHandle, track: u64) -> Result<String, String> {
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -3212,7 +3212,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
             return Err("params 为空：至少给一个参数（或 reset=true 复位全部参数）".into());
         }
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -3375,7 +3375,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
         let mut state: Vec<u8> = Vec::new();
         if let Some(track_id) = args.track {
             let project = app
-                .state::<AppState>()
+                .state::<Arc<AppState>>()
                 .engine
                 .lock()
                 .unwrap()
@@ -3564,7 +3564,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
     ) -> Result<String, String> {
         let before = note_count(app, args.track, args.clip)?;
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -3652,7 +3652,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
     /// 当前片段里的音符数（用于算「这次加了 / 删了几个」）。
     fn note_count(app: &AppHandle, track: u64, clip: u64) -> Result<usize, String> {
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -3747,7 +3747,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
         extra: serde_json::Value,
     ) -> Result<String, String> {
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -3783,7 +3783,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
         let mut notes: Vec<Note> = args.notes.iter().map(|n| n.to_note()).collect();
         // 放置吸附：只吸**起点**（时值由调用方按网格算好；偏移是演奏姿态，更不该被吸）。
         let project_before = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -4116,7 +4116,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
                 .ok_or_else(|| format!("未知 mode：{text}（可选 fold / report）"))?,
         };
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -4322,7 +4322,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
             return Err("clips 至少要有两个片段".into());
         }
         let project = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .engine
             .lock()
             .unwrap()
@@ -5709,7 +5709,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
             path: args.path,
         };
         // 走同步实现：MCP 本来就在自己的线程上，不必再套一层 async 命令。
-        let entry = crate::voices::save(app, &app.state::<crate::state::AppState>(), request)?;
+        let entry = crate::voices::save(app, &app.state::<Arc<AppState>>(), request)?;
         Ok(format!(
             "已存入人声音色库「{}」：{} 秒（id {}）。之后用 sing_song 的 reference_voice 引用它。",
             entry.name,
@@ -5836,7 +5836,7 @@ pitch_range 是建议写作音域（MIDI 音高）；mono=true 是单音乐器�
 
     pub(crate) fn audio_waveform(app: &AppHandle, args: WaveformArgs) -> Result<String, String> {
         let values = app
-            .state::<AppState>()
+            .state::<Arc<AppState>>()
             .assets
             .waveform(&args.path, args.buckets)
             .map_err(|e| e.to_string())?;

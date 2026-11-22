@@ -1,26 +1,28 @@
 /**
- * 轻量国际化：现在支持中 / 英双语。
+ * 轻量国际化：现在支持中 / 英 / 土耳其语。
  *
  * 语言按「用户选过的 → 系统语言 → 兜底」的顺序决定，选择存在 localStorage 里，设置页可以切。
- * 加一门语言只需在 `messages` 里补一份词典 + 在 `LOCALES` 里登记——`t()` 找不到的文案会依次
- * 回退到兜底语言、最后退回 key 本身，所以词典永远可以分步补。
+ * 加一门语言只需在 `messages` 里补一份词典 + 在 `LOCALES` 里登记——未翻译文案会回退到英文，
+ * 再到中文兜底，最后退回 key 本身，所以词典可以分步补。
  */
 import { computed, ref } from "vue";
 
 import en from "./en";
+import tr from "./tr";
 import zh from "./zh";
 
-export type Locale = "zh" | "en";
+export type Locale = "zh" | "en" | "tr";
 
 /** 支持的语言（第一项是兜底语言；将来加语言只改这里 + 补词典）。 */
 export const LOCALES: { id: Locale; label: string }[] = [
   { id: "zh", label: "简体中文" },
   { id: "en", label: "English" },
+  { id: "tr", label: "Türkçe" },
 ];
 
 const FALLBACK: Locale = LOCALES[0].id;
 
-const MESSAGES: Record<Locale, Record<string, string>> = { zh, en };
+const MESSAGES: Record<Locale, Record<string, string>> = { zh, en, tr };
 
 /** 语言选择的持久化键。 */
 const KEY = "ai-daw-locale";
@@ -28,7 +30,7 @@ const KEY = "ai-daw-locale";
 /** 文案里 `{name}` 形式的占位由 `vars` 替换。 */
 export type Vars = Record<string, string | number>;
 
-/** 按系统语言猜一个：`zh*` → 中文，其余 → 英文。 */
+/** 按系统语言猜一个：`zh*` → 中文，`tr*` → 土耳其语，其余 → 英文。 */
 function detect(): Locale {
   const raw = typeof navigator === "undefined" ? "" : navigator.language;
   if (!raw) return FALLBACK;
@@ -70,7 +72,8 @@ function setLocale(next: Locale): void {
 /** 取一条文案。 */
 function t(key: string, vars?: Vars): string {
   const dict = MESSAGES[locale.value] ?? MESSAGES[FALLBACK];
-  let text = dict[key] ?? MESSAGES[FALLBACK][key] ?? key;
+  const fallback = locale.value === "tr" ? en : MESSAGES[FALLBACK];
+  let text = dict[key] ?? fallback[key] ?? MESSAGES[FALLBACK][key] ?? key;
   if (vars) {
     for (const [name, value] of Object.entries(vars)) {
       text = text.replaceAll(`{${name}}`, String(value));

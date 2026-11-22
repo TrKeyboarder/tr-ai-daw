@@ -4678,7 +4678,7 @@ fn open_slot_editor(
                 with_editor_windows(|windows| {
                     windows.insert(key, window);
                 });
-                let state = app_for_work.state::<AppState>();
+                let state = app_for_work.state::<Arc<AppState>>();
                 state.open_editors.lock().unwrap().insert(key);
                 state.editor_plugins.lock().unwrap().insert(key, plugin_id);
                 // 记下这扇窗的原生句柄：「已经开着」时靠它把窗口抬到最前。
@@ -4782,7 +4782,7 @@ fn close_slot_window(app: &crate::tauri_api::AppHandle, key: (u64, PluginSlot)) 
         if let Some(window) = window {
             window.close();
         }
-        let state = app_for_work.state::<AppState>();
+        let state = app_for_work.state::<Arc<AppState>>();
         state.open_editors.lock().unwrap().remove(&key);
         state.editor_plugins.lock().unwrap().remove(&key);
         state.editor_windows.lock().unwrap().remove(&key);

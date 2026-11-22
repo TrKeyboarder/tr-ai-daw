@@ -212,7 +212,7 @@ pub fn ai_yue_midi_abc(
     clip: Option<u64>,
 ) -> Result<MidiScore, String> {
     use crate::tauri_api::Manager;
-    let state = app.state::<crate::state::AppState>();
+    let state = app.state::<std::sync::Arc<crate::state::AppState>>();
     let project = {
         let engine = state.engine.lock().unwrap();
         engine.project().clone()
