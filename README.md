@@ -1,369 +1,81 @@
 <p align="center">
-  <img src="./assets/readme/hero.svg" width="100%" alt="AI DAW — a local-first, AI-native digital audio workstation">
+  <img src="./assets/readme/tr-ai-daw-hero.svg" width="100%" alt="Tr AI-Daw — Müziğini üret, yapay zekânla birlikte çalış">
 </p>
 
 <p align="center">
-  <a href="https://github.com/heshengtao/ai-daw/releases"><img src="https://img.shields.io/github/v/release/heshengtao/ai-daw?style=flat-square&color=1A6CFF" alt="GitHub release"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-1A6CFF?style=flat-square" alt="License: Apache-2.0"></a>
-  <img src="https://img.shields.io/badge/platforms-Windows%20/%20macOS%20/%20Linux%20/%20Web-1A6CFF?style=flat-square" alt="Platforms: Windows, macOS, Linux, Web">
-  <a href="https://hub.docker.com/r/ailm32442/ai-daw"><img src="https://img.shields.io/docker/pulls/ailm32442/ai-daw?style=flat-square&color=1A6CFF" alt="Docker pulls"></a>
+  <a href="https://github.com/TrKeyboarder/tr-ai-daw/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/TrKeyboarder/tr-ai-daw/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI durumu"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/lisans-Apache--2.0-d72b4a?style=for-the-badge" alt="Apache 2.0 lisansı"></a>
+  <a href="https://github.com/TrKeyboarder/tr-ai-daw/pulls"><img src="https://img.shields.io/badge/katkılar-açık-1f9d78?style=for-the-badge" alt="Katkılara açık"></a>
+  <a href="https://github.com/TrKeyboarder/tr-ai-daw/discussions"><img src="https://img.shields.io/github/discussions/TrKeyboarder/tr-ai-daw?style=for-the-badge&label=topluluk" alt="GitHub tartışmaları"></a>
 </p>
 
 <p align="center">
-  <a href="README_zh.md"><b>简体中文</b></a> ·
-  <a href="README.md"><b>English</b></a>
+  <a href="./README.md"><b>Türkçe</b></a> ·
+  <a href="./README_EN.md"><b>English</b></a> ·
+  <a href="https://github.com/heshengtao/ai-daw/blob/main/README_zh.md"><b>简体中文</b></a>
 </p>
+
+<h3 align="center">Müziğini üret. Düzenle. Yapay zekânla birlikte çalış.</h3>
+
+**Tr AI-Daw**, açık kaynaklı AI DAW projesinin Türkçe topluluk sürümüdür. Gerçek bir dijital ses iş istasyonunu; yapay zekâ ajanlarının oturumu okuyup düzenleyebildiği bir üretim alanına dönüştürür. Projeler ve ses işleme yerel bilgisayarında kalır.
+
+> Bu çalışma, [heshengtao/ai-daw](https://github.com/heshengtao/ai-daw) projesinden türetilmiş bağımsız bir topluluk sürümüdür; upstream projeyle resmî bağlantısı veya onayı yoktur. Türkçe çeviri topluluk katkılarıyla geliştirilmektedir.
 
 <p align="center">
-  <a href="https://hub.docker.com/r/ailm32442/ai-daw"><b>Docker Hub</b></a> ·
-  <a href="https://github.com/heshengtao/ai-daw/releases">Download</a>
+  <img src="./assets/screenshots/01-arrange.png" width="100%" alt="Tr AI-Daw düzenleme görünümü: çok kanallı müzik zaman çizelgesi">
 </p>
 
-## What is AI DAW?
+## Neler yapabilirsin?
 
-**AI DAW is a small, AI-native music studio for your desktop** — write, arrange, mix, and master in one lightweight app, and let an AI agent work in the session alongside you.
-
-It is a real DAW: a multi-track timeline, a piano roll, a mixer with sends and buses, automation lanes, a built-in synth, and VST3 / CLAP / AU plugin hosting. It is also built to be **operated by a model** — a bundled Skill teaches any AI harness to drive the running app over MCP, so an agent can add tracks, write notes, balance a mix, and analyse the result while you watch it happen in the UI.
-
-Everything runs on your own machine. No account, no API key, no audio leaving your computer.
-
-<img src="./assets/screenshots/01-arrange.png" width="100%" alt="AI DAW — the arrange view: three tracks with clips on the timeline, the track inspector on the right, and an automation lane along the bottom">
-
-## Why this matters
-
-Models got good at writing code because they could **run** it through a coding-agent framework; models got good at 3D modelling because they could drive real modelling software through Blender MCP. In both cases the model gets a real tool, a real result, and a real feedback loop — and that is what makes fast iteration possible.
-
-Music has mostly been missing that loop. A model can generate audio, but it cannot *work on a session* the way a person does: no arrangement to edit, no mixer to ride, no undo history, no way to notice that its last change made things worse.
-
-**AI DAW is a small, deliberate attempt to close that gap.** It is a real DAW an AI agent can operate through a Skill and MCP, which makes it useful for:
-
-- **Testing what a model actually knows about songwriting** — not whether its audio sounds plausible, but whether it can build an arrangement, choose parts, and fix a mix.
-- **Collecting real songwriting traces** — every agent edit lands in a normal project with a normal undo history, so a session becomes data about how a model reasons about music.
-- **A step toward models that can write music the way they write code** — with a tool that talks back.
-
-## Lightweight by design
-
-Being small is a feature, not a compromise.
-
-- **A lightweight footprint** — no Electron, no cloud, no bundled model zoo. The macOS app is about 38 MB — for reference, mainstream DAWs such as Ableton Live, Logic Pro, and FL Studio typically install at 1–3 GB, making AI DAW **95%+ smaller**.
-- **Fast to start** — nothing heavyweight loads at boot; AI models are pulled in only when you use them.
-- **Big models on demand, never in the installer** — heavy work such as music generation is not integrated by default. **Singing voice** (SoulX-Singer, 1.4 GB) and **voice swap** (SoulX-Singer-SVC, 2.4 GB) are opt-in models in Manager → Models: download them when you want them, and they cost no disk until then.
-- **Built to be extended** — interfaces for plugging external AI models into the workflow are on the roadmap.
-
-## Drive it from any AI harness
-
-AI DAW ships a **Skill** (`skills/aidaw`) that teaches an AI agent how to operate the running app — reading and writing the project, tracks, clips and notes; analysing a style, looking up music theory and drum patterns, and turning a genre recipe into MIDI; mixing (gain, pan, sends, automation); transport and recording; loudness and spectrum analysis; WAV export; plugin scanning. It works over the built-in **MCP** server, so any harness that supports Agent Skills can pick it up.
-
-The app also ships 18 sampled instruments — **acoustic piano, nylon-string and clean electric guitars, finger bass, an acoustic drum kit, a string ensemble, slow strings, solo violin/viola/cello/contrabass, pizzicato strings, trumpet, French horns, and synth strings/brass 1 & 2** (SF3/SF2, about 13.5 MB total) — ready to play out of the box.
-
-**Option 1 · Install from the command line**
-
-```bash
-npx skills add heshengtao/ai-daw
-```
-
-**Option 2 · Ask your agent to install it**
-
-```
-Install this Skill: https://github.com/heshengtao/ai-daw
-```
-
-Every edit an agent makes goes through the same command pipeline as the UI: it lands in the undo history, shows up in the interface, and is attributed to the agent — so you can always see what it did and undo it.
-
-## Features
-
-### Arranging & Editing — Compose on a real timeline
-
-Lay out a song the way you hear it. Drag clips across tracks, split them where the music changes, and let the ruler and grid follow a tempo and time signature you can change anywhere in the song. MIDI clips draw their own notes and audio clips draw their own waveform, so you can read the arrangement at a glance.
-
-- **Multi-track arranging** — MIDI and audio clips side by side, cross-track drag & drop, marquee select
-- **A piano roll that reads well** — clip previews show notes; the editor gives you velocity, zoom, and a keyboard
-- **Dynamic tempo & meter** — change tempo or time signature at any point; the grid follows
-- **Transport & loop** — play, stop, seek, loop a region, metronome
-- **Automation lanes** — draw curves for anything a plugin or the built-in synth exposes
-- **A real editing toolkit** — split, move, copy/paste, undo/redo, plus a keyboard-shortcut cheat sheet
-
-<p align="center">
-  <img src="./assets/screenshots/02-edit.png" width="100%" alt="The piano-roll editor showing a chord clip's notes and a velocity lane">
-</p>
-
-### Mixing & Mastering — Finish the track
-
-Balance the song, then make it loud. Channel strips give you gain, pan, sends, buses, mute/solo and metering; a mastering chain on the master bus handles loudness, peaks, and stereo width so you can render something release-ready without leaving the app.
-
-- **Mixer** — gain, pan, sends, buses, mute/solo, and level metering
-- **Built-in effects** — dynamics, EQ, and time-based effects, ready to drop on any track
-- **Mastering chain** — loudness normalization, true-peak limiting, and stereo width
-- **Built-in synth** — oscillators, envelopes, and a filter with a live oscilloscope
-- **Export** — lossless WAV or LAME-encoded MP3 (sample rate and bitrate your pick), a standard MIDI file, or a MusicXML score
-
-<p align="center">
-  <img src="./assets/screenshots/03-mix.png" width="100%" alt="The mixer: channel strips for the master bus and each track, with faders, pan and mute/solo">
-</p>
-
-### Plugins — Bring your own instruments and effects
-
-AI DAW hosts **VST3** and **CLAP** plugins everywhere, plus **Audio Units (AU / AUv3)** on macOS, so the tools you already own come with you. A plugin manager searches the open registry, filters by type and OS compatibility, and installs, updates, or removes plugins in one click — or point it at something you already have on disk.
-
-- **VST3 / CLAP / AU hosting** — load third-party instruments and effects on any track (AU and AUv3 on macOS)
-- **Plugin manager** — search the registry, filter by instrument/effect and platform, install / update / uninstall
-- **Local import** — bring in a plugin you have installed elsewhere
-- **Editors & parameters** — open a plugin's own UI, or drive its parameters from the inspector and automation lanes; AU plugins without their own view get a generic parameter panel
-- **SoundFont libraries** — import your own `.sf2` / `.sf3` (one bank expands into dozens of presets), or install an open bank such as MuseScore General, FluidR3 or FreePats from the built-in SoundFont index
-
-<p align="center">
-  <img src="./assets/screenshots/04-plugins.png" width="100%" alt="The plugins panel: a built-in synth and effect list, with filters for built-in and external plugins">
-</p>
-
-### Local AI — Turn audio into material you can work with
-
-The AI features are built for real sessions, not demos. Point them at a track and they hand back something you can keep editing: MIDI notes you can move, a vocal take with less room noise, stems you can rebalance. Everything runs on your own hardware — CPU by default, with optional CoreML (macOS) and DirectML (Windows) acceleration.
-
-- **Tempo detection** — Beat This! (ISMIR 2024) infers a global BPM and time signature in one pass
-- **Audio-to-MIDI** — Basic Pitch turns a recorded performance into editable notes; switch the model to **MuScriptor** (via the audio.cpp engine) for multi-instrument transcription, which lands one MIDI track per instrument. 393 MB–5.1 GB, downloaded on demand (CC BY-NC 4.0 — non-commercial)
-- **Voice cleanup** — LocalVQE reduces noise and reverb on vocal takes
-- **Stem separation** — HTDemucs v4 splits a track into 4 or 6 stems, ready to remix
-- **Singing voice** — a MIDI melody, lyrics and a reference voice become an editable vocal take (SoulX-Singer zero-shot timbre cloning). Lyrics can be edited per note in the piano roll (`-` slurs), and reference voices live in a **voice library** shared across projects — changing the timbre is just picking another one
-- **Voice swap** — take an existing vocal, keep its melody/lyrics/timing and replace only the timbre with a reference voice (SoulX-Singer-SVC, zero-shot). The result lands on a new track below the source and is a single undo away; separating the vocals from a full mix first keeps accompaniment out of the pitch tracker
-- **Offline by design** — no account, no API key, no uploads
-
-<p align="center">
-  <img src="./assets/screenshots/05-ai-panel.png" width="100%" alt="The AI panel: MCP server status, plus entries for audio-to-MIDI, voice cleanup, stem separation and tempo detection">
-</p>
-
-### MCP Server — Let an AI agent work in your session
-
-Flip one switch and your project becomes something an AI assistant can operate. The built-in **MCP (Model Context Protocol)** server exposes the session over HTTP bound to `127.0.0.1` — connect your agent, hand it a task, and watch it add clips, fix notes, or change levels while the UI updates in real time. The `aidaw` command-line tool is a thin client for the same server.
-
-- **MCP over HTTP** — a loopback-only endpoint your agent connects to
-- **Live edits** — agent actions show up immediately as ordinary project changes
-- **`aidaw` CLI** — installable onto your `PATH` from Settings
-
-<p align="center">
-  <img src="./assets/screenshots/06-settings-ai-mcp.png" width="100%" alt="Settings → AI / MCP: execution backend selection and the MCP server endpoint">
-</p>
-
-## Installation
-
-Pre-built binaries will be published on the [GitHub Releases](https://github.com/heshengtao/ai-daw/releases) page. Until then, build from source.
-
-### Requirements
-
-- Rust (stable) with Cargo
-- Node.js ≥ 18 and [pnpm](https://pnpm.io/)
-- Tauri v2 system prerequisites — see <https://tauri.app/start/prerequisites/>
-
-### Build from Source
-
-```bash
-git clone https://github.com/heshengtao/ai-daw.git
-cd ai-daw
-
-pnpm install
-pnpm tauri dev        # run the app in development
-pnpm tauri build      # produce a release build
-```
-
-Other useful commands:
-
-```bash
-pnpm build            # type-check the frontend and build it
-pnpm build:aidaw      # build the aidaw CLI (see tools/build-aidaw.sh)
-```
-
-### Platform Support
-
-| Platform | Status |
-| --- | --- |
-| Windows (x86_64) |  Supported |
-| macOS (Apple Silicon) |  Supported (see the “app is damaged” note below) |
-| Linux (x86_64 / arm64) |  Supported |
-
-> **macOS says “App is damaged”?** The app is ad-hoc signed (not notarized), so macOS
-> quarantines downloads. Run this in Terminal, then open the app normally:
->
-> ```bash
-> xattr -cr "/Applications/AI DAW.app"
-> ```
-
-> **Intel Macs are not supported yet.** ONNX Runtime publishes no prebuilt binaries for
-> `x86_64-apple-darwin`, so the local AI models cannot be linked for Intel macOS.
-
-## Browser access & headless
-
-AI DAW can run **without a window** and serve the same interface to any browser on your
-network. The desktop app and the browser client drive the *same* session — same project,
-same undo history, same audio engine.
-
-### Docker (pre-built image)
-
-```bash
-docker run -d --name ai-daw -p 28430:28430 -v ai-daw-data:/data ailm32442/ai-daw
-```
-
-Images are published on `v*` release tags, and `latest` points at the most recent
-release; ordinary main commits no longer rebuild the image. To exercise the
-`Dockerfile`, run the `Docker (ai-daw)` workflow manually from Actions.
-
-Open <http://localhost:28430> and start working — **no login, no token, no cookie check**.
-The headless build is meant for machines without a display; access control is the
-deployment's job (LAN, container network, or a reverse proxy in front of it).
-
-Containers usually have **no sound card**. In that case the audio engine switches to a
-**virtual clock**: rendering still runs in real time, the playhead / loop / meters behave
-normally, and the PCM goes out through `/audio` — **the web page becomes the sound card**.
-A "Virtual clock" pill in the status bar says so (click it to retry the device). To force
-this path on a machine that does have audio, set `AIDAW_AUDIO=virtual`.
-
-**Plugin editors work too.** The container has no window system, but the image ships Xvfb:
-a VST3 / CLAP plugin still draws its own editor on a virtual display, the daemon encodes that
-screen as a frame stream, and the page renders it on a canvas while forwarding mouse and
-keyboard back. So the editor becomes an in-page window — the same editor you would get in a
-native window on the desktop. (On the desktop build, "Open editor" still pops the real native
-window: better fidelity, lower latency.) Set `AIDAW_GUI_STREAM=0` to skip the virtual display
-and save memory — you can still edit parameters, just not see the editor.
-The image is now about **585 MB** (it was ~286 MB): the extra is Xvfb plus Mesa software
-OpenGL, which some plugin editors need — without `libgl1-mesa-dri` they render black. If none
-of your plugins use GL, drop the `libgl1` / `libglx-mesa0` lines and get ~150 MB back.
-
-
-### Docker (build from source)
-
-```bash
-git clone https://github.com/heshengtao/ai-daw.git
-cd ai-daw
-docker build -t ai-daw .
-docker run -d -p 28430:28430 -v ai-daw-data:/data ai-daw
-```
-
-### Headless binary
-
-```bash
-npm run build                                                # produces dist/
-cargo run -p ai-daw-daemon --no-default-features --bin aidawd -- \
-  --data-dir ~/.ai-daw --port 28430 --web-dir dist
-```
-
-### Environment variables
-
-| Variable | Default | Purpose |
+| 🎼 Beste ve düzenleme | 🎚️ Kayıt ve miks | 🤖 Yerel yapay zekâ |
 | --- | --- | --- |
-| `AIDAW_DATA_DIR` | `/data` in the image | sessions, presets, models |
-| `AIDAW_WEB_DIR` | `/web` in the image | built frontend to serve |
-| `AIDAW_NO_AUDIO` | unset | skip opening an audio device (containers without ALSA) |
-| `AIDAW_AUDIO` | unset | `virtual` = never touch a sound card, use the virtual clock only |
-| `AIDAW_MODELS_EXTRA` | `/opt/models` in the image | extra model search dirs (`:` separated, ranked after the download dir) |
-| `AIDAW_ORT_BUNDLED` | `/opt/ort` in the image | bundled ONNX Runtime directory |
-| `AIDAW_ARTICULATION_MAPS` | `/opt/articulation-maps` in the image | bundled articulation-map library |
-| `AIDAW_MCP_URL` | auto-discovered | where the `aidaw` CLI looks for the running app |
+| Çok kanallı MIDI/ses zaman çizelgesi, piyano rulosu, otomasyon, tempo ve ölçü değişiklikleri | Mikser, efektler, VST3/CLAP eklentileri, SoundFont ve WAV/MP3 dışa aktarma | MCP üzerinden ajan kontrolü; tempo analizi, sesten MIDI ve stem ayırma gibi yerel araçlar |
 
+- **Müziğin kontrolü sende:** parçalar, klipler, notalar, otomasyon ve mikser tek bir projede.
+- **Ajanın seninle aynı oturumda çalışsın:** MCP sunucusu ve `aidaw` CLI ile düzenlemeleri izle, geri al ve yönlendir.
+- **Yerel öncelikli:** hesap veya API anahtarı gerekmez; isteğe bağlı büyük modeller ayrıca indirilir.
+- **Türkçe arayüz:** Ayarlar bölümünden Türkçe’yi seçebilir veya sistem dili Türkçe olduğunda otomatik kullanabilirsin. Çeviri geliştikçe eksik metinler İngilizce/Çince yedek metinleriyle gösterilir.
 
-> The headless build also starts the embedded MCP server (config at `<data dir>/mcp.json`, off by default),
-> so an AI can drive the same project over MCP inside the container.
+## Başlarken
 
-### HTTP API
+Henüz bu depoda yayımlanmış kurulum paketi yok. Kaynak koddan derleyebilir veya ilk kurulum paketleri için [Releases](https://github.com/TrKeyboarder/tr-ai-daw/releases) sayfasını takip edebilirsin.
 
-| Method | Path | Purpose |
-| --- | --- | --- |
-| `POST` | `/rpc/{command}` | every command, same names and arguments as the app's IPC (`GET /commands` lists what this build serves) |
-| `GET` | `/events` | Server-Sent Events: engine edits and transport state |
-| `GET` | `/audio` | WebSocket: live PCM (48 kHz stereo float32, ~10 ms blocks) |
-| `GET` | `/health` | liveness + whether an audio device is available |
-| `GET` | `/commands` | every command name the server exposes |
+### Linux için derleme
 
-## Architecture
+Rust (stable), Node.js 22+, pnpm 10 ve [Tauri Linux önkoşulları](https://v2.tauri.app/start/prerequisites/) gerekir.
 
-```
-src-tauri/          Tauri shell: windows, native plugin editors, auto-updater
-crates/daemon/      the whole backend: project engine, audio host, MCP, HTTP
-crates/engine/      DSP + scheduling + rendering (no Tauri dependency)
-crates/ipc/         the command/event schema shared by app, CLI and MCP
-src/                Vue 3 frontend — identical for desktop and browser
+```bash
+git clone https://github.com/TrKeyboarder/tr-ai-daw.git
+cd tr-ai-daw
+pnpm install --frozen-lockfile
+
+# Genel Linux x86_64 için optimize Debian paketi
+CARGO_BUILD_JOBS=1 \
+CARGO_PROFILE_RELEASE_LTO=thin \
+CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+AIDAW_TARGET=x86_64-unknown-linux-gnu \
+pnpm tauri build --target x86_64-unknown-linux-gnu --bundles deb
 ```
 
-The frontend never talks to Rust directly: `src/api/ipc.ts` picks a transport (`Tauri IPC`
-or `HTTP + SSE + WebSocket`), so every screen works in both shells. That is why the browser
-build is not a port — it is the same app talking to the same backend over the network.
+Derleme, makineye özel işlemci bayrakları kullanmaz; böylece sonuç daha geniş bir x86_64 sistem aralığında çalışabilir. Tauri, sistem bağımlılıkları ve diğer platformlar için upstream’in [derleme belgelerine](https://github.com/heshengtao/ai-daw#build-from-source) bak.
 
-## FAQ
+## Katkıda bulun
 
-### Is AI DAW free?
+Türkçe çeviri, hata düzeltmeleri, testler, Linux deneyimi ve kullanım belgeleri için katkını bekliyoruz! Başlamak için:
 
-Yes. AI DAW is open source under Apache 2.0. There are no paid tiers and no feature gates.
+1. Bir sorun veya öneri için [Issues](https://github.com/TrKeyboarder/tr-ai-daw/issues) aç; fikir alışverişi için [Discussions](https://github.com/TrKeyboarder/tr-ai-daw/discussions) bölümüne katıl.
+2. Depoyu fork et, değişikliğini ayrı bir dalda geliştir ve `main` dalına bir pull request gönder.
+3. Pull request’ler bir onaylı incelemeden sonra birleştirilir. PR açarken değişikliği ve çalıştırdığın kontrolleri belirt.
 
-### Does it work offline?
+Detaylar için [CONTRIBUTING.md](./CONTRIBUTING.md) ve PR şablonuna göz at. Küçük bir çeviri düzeltmesi bile projeye değer katar.
 
-Yes. The app and every AI model run locally. The only network access is downloading plugin packages and AI models (which you start), and fetching the plugin registry.
+## Proje bağlantıları
 
-### Do I need a GPU?
+- **Kaynak kod:** [TrKeyboarder/tr-ai-daw](https://github.com/TrKeyboarder/tr-ai-daw)
+- **Yol haritası ve topluluk:** [Tr AI-Daw GitHub Project](https://github.com/users/TrKeyboarder/projects/2)
+- **Upstream proje:** [heshengtao/ai-daw](https://github.com/heshengtao/ai-daw)
+- **Lisans:** [Apache License 2.0](./LICENSE). Model ağırlıkları ve bazı isteğe bağlı modeller ayrı lisanslara sahiptir; ayrıntılar için [MODELS.md](./MODELS.md) dosyasına bak.
 
-No. AI models run on CPU by default. macOS can use CoreML and Windows can use DirectML when the hardware supports it; both are optional.
+---
 
-### Which AI models ship with the app?
-
-Two small ones do: **Basic Pitch** (audio-to-MIDI) and **LocalVQE** (voice cleanup), so those work the moment you install. The larger models — **Beat This!** (tempo detection) and **HTDemucs** (stem separation, 4- or 6-stem) — download on demand from the in-app model manager the first time you use them, and are stored outside the source tree.
-
-No model weights are ever part of the repository or the installers, and each model keeps its publisher's license: see [MODELS.md](MODELS.md). That includes the optional CC BY-NC 4.0 (non-commercial) models — **YuE2** for song generation and **SheetSage2** for cover scores.
-
-### Which plugin formats are supported?
-
-VST3 and CLAP on Windows, macOS and Linux; **Audio Units (AU / AUv3)** as well on macOS.
-
-### Do I need the app running to let an agent drive it?
-
-Yes. The Skill and the `aidaw` CLI talk to a running AI DAW over MCP, so start the app first (`aidaw status` will tell you if it is up).
-
-## Support
-
-### Please star us!
-⭐ Your support is the driving force for us to move forward!
-
-### Tips Welcome!
-<div align="center" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/agentparty)
-[![爱发电](https://img.shields.io/badge/爱发电-支持我们-946ce6?style=for-the-badge&logo=affine&logoColor=white)](https://afdian.com/a/agentparty)
-
-</div>
-
-### Follow us
-<div align="center">
-  <a href="https://space.bilibili.com/26978344">
-    <img src="screenshots/B.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="bilibili"/>
-  </a>
-  <a href="https://www.youtube.com/@agentParty">
-    <img src="screenshots/YT.png" width="100" height="100" style="border-radius: 80%; overflow: hidden;" alt="youtube"/>
-  </a>
-</div>
-
-### Join the Community
-If you have any questions or issues with the project, you are welcome to join our community.
-
-1. QQ Group: `931057213` (Full) / `902882342` (Group 2)
-
-2. Discord: [Discord link](https://discord.gg/f2dsAKKr2V)
-
-## Contributors
-
-<a href="https://github.com/heshengtao/ai-daw/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=heshengtao/ai-daw" alt="Contributors to heshengtao/ai-daw" />
-</a>
-
-## License
-
-The application **code** is Apache-2.0 — see [LICENSE](LICENSE).
-
-Model **weights** are a separate layer: they are never part of this repository or of the
-installers, they keep the license their publisher gave them, and the app downloads them
-on demand (and verifies each downloaded file's `sha256`). See **[MODELS.md](MODELS.md)** for the full
-table of models, sources and licenses.
-
-Some optional models are **CC BY-NC 4.0 (non-commercial)** — YuE2 for song generation and
-SheetSage2 for cover scores. They are opt-in downloads: do not use those weights for
-commercial work unless you hold a commercial license from their publishers. Generated
-audio/MIDI belongs to you, under the upstream terms and subject to the rights you hold in
-the input audio.
-
-## Third-Party Licenses
-
-This project builds on third-party open source software. Files adapted from other projects, and dependencies whose licenses are not in the permissive default set, are listed in [NOTICE](NOTICE).
+<p align="center"><b>Birlikte daha erişilebilir ve Türkçe bir müzik üretim aracı geliştirelim. 🎶</b></p>
